@@ -3,68 +3,301 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Вход | Lemon Box</title>
+    <title>Вход | Lemon Box News</title>
     
+    <!-- Шрифты -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/components/header.css">
     <link rel="stylesheet" href="styles/components/footer.css">
     <link rel="stylesheet" href="styles/pages/auth.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-     <!--Скрипты-->
-    <!-- Подключаем Supabase JS -->
-    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-    <script src="supabase-config.js"></script>
-    <script src="js/auth.js"></script>
-    <script src="js/script.js"></script>
-    <script src="js/auth-functions.js"></script>
-    <script src="js/login.js"></script>
-
+    
+    <link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/96/000000/lemon.png">
 </head>
 <body>
-    <!-- Такая же шапка как в register.html -->
-    
-    <main class="register-container">
-        <div class="register-box">
-            <div class="register-header">
-                <h2 class="vhod"><i class="fas fa-sign-in-alt" style="padding-right: 10px; padding-top: 2px;"></i> Вход в аккаунт</h2>
-                <p class="vhod2">Войдите, чтобы получить доступ к форуму</p>
-            </div>
-            
-            <div id="message" class="message"></div>
-            
-            <form id="loginForm">
-                <div class="form-group">
-                    <label class="form-label" for="loginEmail">
-                        <i class="fas fa-envelope"></i> Email
-                    </label>
-                    <input type="email" 
-                           id="loginEmail" 
-                           class="form-input"
-                           placeholder="Ваш email"
-                           required>
+    <!-- Шапка -->
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-lemon"></i>
                 </div>
-                
-                <div class="form-group">
-                    <label class="form-label" for="loginPassword">
-                        <i class="fas fa-lock"></i> Пароль
-                    </label>
-                    <input type="password" 
-                           id="loginPassword" 
-                           class="form-input"
-                           placeholder="Ваш пароль"
-                           required>
+                <div class="logo-text">
+                    <div class="logo-title">Lemon <span>Box</span> News</div>
+                    <div class="logo-subtitle">Официальный новостной портал</div>
                 </div>
-                
-                <button type="submit" class="btn-auth">
+            </a>
+
+            <!-- Быстрая навигация по страницам -->
+            <div class="quick-nav">
+                <a href="index.html" class="quick-nav-link">
+                    <i class="fas fa-home"></i> Главная
+                </a>
+                <a href="login.html" class="quick-nav-link active">
                     <i class="fas fa-sign-in-alt"></i> Войти
-                </button>
-            </form>
-            
-            <div class="auth-links">
-                Нет аккаунта? <a href="register.html">Зарегистрироваться</a>
+                </a>
+                <a href="register.html" class="quick-nav-link">
+                    <i class="fas fa-user-plus"></i> Регистрация
+                </a>
+                <a href="forum.html" class="quick-nav-link">
+                    <i class="fas fa-comments"></i> Форум
+                </a>
+            </div>
+
+            <nav class="nav">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i> Главная
+                </a>
+                <a href="login.html" class="nav-link active">
+                    <i class="fas fa-sign-in-alt"></i> Вход
+                </a>
+                <a href="register.html" class="nav-link">
+                    <i class="fas fa-user-plus"></i> Регистрация
+                </a>
+                <a href="forum.html" class="nav-link">
+                    <i class="fas fa-comments"></i> Форум
+                </a>
+            </nav>
+
+            <!-- Меню пользователя (скрыто по умолчанию) -->
+            <div class="user-menu" id="userMenu" style="display: none;">
+                <div class="user-dropdown">
+                    <button class="user-btn">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span class="user-name" id="userName">Пользователь</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="profile.html" class="dropdown-item">
+                            <i class="fas fa-user"></i> Мой профиль
+                        </a>
+                        <a href="my-posts.html" class="dropdown-item">
+                            <i class="fas fa-comment"></i> Мои сообщения
+                        </a>
+                        <a href="settings.html" class="dropdown-item">
+                            <i class="fas fa-cog"></i> Настройки
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i> Выйти
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="auth-page">
+        <div class="container container-xs">
+            <div class="auth-container">
+                <div class="auth-box">
+                    <div class="auth-header">
+                        <h2><i class="fas fa-sign-in-alt"></i> Вход в аккаунт</h2>
+                        <p>Войдите, чтобы получить доступ к форуму и личному кабинету</p>
+                    </div>
+                    
+                    <div id="message" class="message"></div>
+                    
+                    <form id="loginForm" class="auth-form">
+                        <div class="form-group">
+                            <label for="loginEmail" class="form-label">
+                                <i class="fas fa-envelope"></i> Email
+                            </label>
+                            <input type="email" 
+                                   id="loginEmail" 
+                                   class="form-control"
+                                   placeholder="Введите ваш email"
+                                   required
+                                   autocomplete="email">
+                            <div class="form-help">Введите email, указанный при регистрации</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="loginPassword" class="form-label">
+                                <i class="fas fa-lock"></i> Пароль
+                            </label>
+                            <input type="password" 
+                                   id="loginPassword" 
+                                   class="form-control"
+                                   placeholder="Введите ваш пароль"
+                                   required
+                                   autocomplete="current-password">
+                            <div class="password-actions">
+                                <label class="remember-me">
+                                    <input type="checkbox" id="rememberMe">
+                                    Запомнить меня
+                                </label>
+                                <a href="forgot-password.html" class="forgot-password">
+                                    Забыли пароль?
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-auth">
+                            <i class="fas fa-sign-in-alt"></i> Войти в аккаунт
+                        </button>
+                    </form>
+                    
+                    <div class="auth-divider">
+                        <span>или войти через</span>
+                    </div>
+                    
+                    <div class="social-auth">
+                        <a href="#" class="social-btn google-btn">
+                            <i class="fab fa-google"></i> Google
+                        </a>
+                        <a href="#" class="social-btn discord-btn">
+                            <i class="fab fa-discord"></i> Discord
+                        </a>
+                    </div>
+                    
+                    <div class="auth-links">
+                        Нет аккаунта? <a href="register.html">Зарегистрироваться</a>
+                    </div>
+                    
+                    <div class="guest-access">
+                        <h4><i class="fas fa-user-clock"></i> Гостевой доступ</h4>
+                        <p>Хотите просто посмотреть? <a href="forum.html">Перейти на форум как гость</a> и ознакомиться с публичными разделами.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">
+                <div class="footer-logo-icon">
+                    <i class="fas fa-lemon"></i>
+                </div>
+                <h3 class="footer-logo-title">Lemon <span>Box</span> News</h3>
+                <p class="footer-logo-text">Официальный источник новостей игры Lemon Box © 2024</p>
+            </div>
+            
+            <div class="footer-links">
+                <h4 class="footer-heading">Навигация</h4>
+                <a href="index.html" class="footer-link">
+                    <i class="fas fa-home"></i> Главная
+                </a>
+                <a href="login.html" class="footer-link">
+                    <i class="fas fa-sign-in-alt"></i> Вход
+                </a>
+                <a href="register.html" class="footer-link">
+                    <i class="fas fa-user-plus"></i> Регистрация
+                </a>
+                <a href="forum.html" class="footer-link">
+                    <i class="fas fa-comments"></i> Форум
+                </a>
+            </div>
+            
+            <div class="footer-social">
+                <h4 class="footer-heading">Официальные каналы</h4>
+                <div class="social-icons">
+                    <a href="#" class="social-link">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-discord"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-vk"></i>
+                    </a>
+                </div>
+                <div class="footer-contact">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:support@lemonbox.game" class="contact-link">
+                            support@lemonbox.game
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="footer-text">Lemon Box — динамичная онлайн игра с регулярными обновлениями и системой достижений.</p>
+            <p class="footer-copyright">
+                © 2024 Lemon Box News. Все права защищены.
+                <span class="age-rating">12+</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Кнопка "Наверх" -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- JS -->
+    <script src="js/supabase-config.js"></script>
+    <script src="js/auth-functions.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/script.js"></script>
+    
+    <script>
+        // Активация меню пользователя
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = localStorage.getItem('currentUser');
+            const userMenu = document.getElementById('userMenu');
+            
+            if (currentUser) {
+                try {
+                    const user = JSON.parse(currentUser);
+                    document.getElementById('userName').textContent = user.username;
+                    userMenu.style.display = 'flex';
+                    
+                    // Если пользователь уже авторизован, редиректим на главную
+                    window.location.href = 'index.html';
+                } catch (e) {
+                    localStorage.removeItem('currentUser');
+                }
+            }
+            
+            // Обработка формы входа
+            const loginForm = document.getElementById('loginForm');
+            const messageDiv = document.getElementById('message');
+            
+            if (loginForm) {
+                loginForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const email = document.getElementById('loginEmail').value;
+                    const password = document.getElementById('loginPassword').value;
+                    
+                    const result = await window.authFunctions.login(email, password);
+                    
+                    if (result.success) {
+                        messageDiv.className = 'message success';
+                        messageDiv.textContent = '✅ Вход выполнен успешно! Перенаправляем...';
+                        
+                        setTimeout(() => {
+                            window.location.href = 'forum.html';
+                        }, 1500);
+                    } else {
+                        messageDiv.className = 'message error';
+                        messageDiv.textContent = '❌ Ошибка: ' + result.error;
+                        
+                        setTimeout(() => {
+                            messageDiv.style.display = 'none';
+                        }, 5000);
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>

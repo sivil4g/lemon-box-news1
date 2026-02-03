@@ -5,39 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lemon Box News | Официальные новости игры</title>
     
+    <!-- Шрифты -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Nunito:wght@400;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/components/header.css">
     <link rel="stylesheet" href="styles/components/footer.css">
     <link rel="stylesheet" href="styles/pages/index.css">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    
     <link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/96/000000/lemon.png">
-
-    <!--Скрипты-->
-    <!-- Подключаем Supabase JS -->
-    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-    <script src="supabase-config.js"></script>
-    <script src="js/script.js"></script>
-</head>
 </head>
 <body>
     <!-- Шапка -->
     <header class="header">
         <div class="container">
-            <div class="logo">
-                <i class="fas fa-lemon"></i>
-                <h1>Lemon <span>Box</span> News</h1>
-                <h5 class="lbn">Официальный новостной портал Lemon Box News</h5>
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-lemon"></i>
+                </div>
+                <div class="logo-text">
+                    <div class="logo-title">Lemon <span>Box</span> News</div>
+                    <div class="logo-subtitle">Официальный новостной портал</div>
+                </div>
+            </a>
+
+            <!-- Быстрая навигация по страницам -->
+            <div class="quick-nav">
+                <a href="index.html" class="quick-nav-link active">
+                    <i class="fas fa-home"></i> Главная
+                </a>
+                <a href="login.html" class="quick-nav-link" id="loginLink">
+                    <i class="fas fa-sign-in-alt"></i> Войти
+                </a>
+                <a href="register.html" class="quick-nav-link" id="registerLink">
+                    <i class="fas fa-user-plus"></i> Регистрация
+                </a>
+                <a href="forum.html" class="quick-nav-link">
+                    <i class="fas fa-comments"></i> Форум
+                </a>
             </div>
+
             <nav class="nav">
-                <a href="#" class="active"><i class="fas fa-home"></i> Главная</a>
-                <a href="#"><i class="fas fa-newspaper"></i> Новости</a>
-                <a href="#"><i class="fas fa-gamepad"></i> Геймплей</a>
-                <a href="#"><i class="fas fa-trophy"></i> Лидеры</a>
-                <a href="#"><i class="fas fa-cloud-download-alt"></i> Скачать</a>
-                <a href="#"><i class="fas fa-question-circle"></i> Помощь</a>
+                <a href="index.html" class="nav-link active">
+                    <i class="fas fa-home"></i> Главная
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-newspaper"></i> Новости
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-gamepad"></i> Геймплей
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-trophy"></i> Лидеры
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-cloud-download-alt"></i> Скачать
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-question-circle"></i> Помощь
+                </a>
             </nav>
+
+            <!-- Меню пользователя (скрыто по умолчанию) -->
+            <div class="user-menu" id="userMenu" style="display: none;">
+                <div class="user-dropdown">
+                    <button class="user-btn">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span class="user-name" id="userName">Пользователь</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="profile.html" class="dropdown-item">
+                            <i class="fas fa-user"></i> Мой профиль
+                        </a>
+                        <a href="my-posts.html" class="dropdown-item">
+                            <i class="fas fa-comment"></i> Мои сообщения
+                        </a>
+                        <a href="settings.html" class="dropdown-item">
+                            <i class="fas fa-cog"></i> Настройки
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i> Выйти
+                        </a>
+                    </div>
+                </div>
+            </div>
+
             <button class="menu-toggle" id="menuToggle">
                 <i class="fas fa-bars"></i>
             </button>
@@ -46,11 +104,17 @@
 
     <!-- Главный баннер -->
     <section class="hero">
-        <div class="hero-content">
-            <span class="hero-tag">НОВОЕ ОБНОВЛЕНИЕ 7.0</span>
-            <h2>Lemon Box 7.0 "РЕВОЛЮЦИОННОЕ ОБНОВЛЕНИЕ"</h2>
-            <p>Полный редизайн интерфейса, новая система достижений, улучшенная графика и оптимизация производительности!</p>
-            <a href="#" class="btn-hero">Читать патчноты <i class="fas fa-arrow-right"></i></a>
+        <div class="container">
+            <div class="hero-content">
+                <span class="hero-tag">
+                    <i class="fas fa-fire"></i> НОВОЕ ОБНОВЛЕНИЕ 7.0
+                </span>
+                <h2>Lemon Box 7.0 "РЕВОЛЮЦИОННОЕ ОБНОВЛЕНИЕ"</h2>
+                <p>Полный редизайн интерфейса, новая система достижений, улучшенная графика и оптимизация производительности! Играй сейчас и получи эксклюзивные награды.</p>
+                <a href="#" class="btn-hero">
+                    Читать патчноты <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
         </div>
         <div class="hero-lemons">
             <div class="lemon"></div>
@@ -62,22 +126,35 @@
     <!-- Быстрый доступ -->
     <section class="quick-links">
         <div class="container">
-            <a href="#" class="quick-link">
-                <i class="fas fa-download"></i>
-                <span>Скачать<br>игру</span>
-            </a>
-            <a href="#" class="quick-link">
-                <i class="fas fa-list-ol"></i>
-                <span>Таблица<br>лидеров</span>
-            </a>
-            <a href="#" class="quick-link">
-                <i class="fas fa-sync-alt"></i>
-                <span>История<br>обновлений</span>
-            </a>
-            <a href="#" class="quick-link">
-                <i class="fas fa-bug"></i>
-                <span>Известные<br>баги</span>
-            </a>
+            <h2 class="text-center text-lemon mb-4">
+                <i class="fas fa-bolt"></i> Быстрый доступ
+            </h2>
+            <div class="quick-links-grid">
+                <a href="#" class="quick-link">
+                    <div class="quick-link-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <span class="quick-link-text">Скачать<br>игру</span>
+                </a>
+                <a href="#" class="quick-link">
+                    <div class="quick-link-icon">
+                        <i class="fas fa-list-ol"></i>
+                    </div>
+                    <span class="quick-link-text">Таблица<br>лидеров</span>
+                </a>
+                <a href="#" class="quick-link">
+                    <div class="quick-link-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <span class="quick-link-text">История<br>обновлений</span>
+                </a>
+                <a href="#" class="quick-link">
+                    <div class="quick-link-icon">
+                        <i class="fas fa-bug"></i>
+                    </div>
+                    <span class="quick-link-text">Известные<br>баги</span>
+                </a>
+            </div>
         </div>
     </section>
 
@@ -85,83 +162,97 @@
     <main class="container main-content">
         <!-- Секция последних новостей -->
         <section class="news-section">
-            <h2><i class="fas fa-fire"></i> Последние новости об обновлениях</h2>
+            <h2>
+                <i class="fas fa-fire"></i> Последние новости об обновлениях
+            </h2>
             <div class="news-grid">
-                <article class="news-card">
+                <article class="news-card animate-fade">
                     <div class="news-card-header">
                         <span class="news-category hotfix">Хотфикс</span>
                         <span class="news-date">Сегодня, 09:15</span>
                     </div>
-                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Исправление багов">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Исправление багов" class="news-image">
                     <div class="news-card-content">
                         <h3>Вышел хотфикс 7.0.1 - исправлены критические ошибки</h3>
                         <p>Исправлены проблемы с загрузкой текстур, оптимизирована работа сервера, устранены 15+ багов.</p>
-                        <a href="#" class="news-link">Список исправлений <i class="fas fa-chevron-right"></i></a>
+                        <a href="#" class="news-link">
+                            Список исправлений <i class="fas fa-chevron-right"></i>
+                        </a>
                     </div>
                 </article>
 
-                <article class="news-card">
+                <article class="news-card animate-fade">
                     <div class="news-card-header">
                         <span class="news-category update">Обновление</span>
                         <span class="news-date">Вчера, 18:30</span>
                     </div>
-                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Новый сезон">
+                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Новый сезон" class="news-image">
                     <div class="news-card-content">
                         <h3>Сезон 7 начался! Новые награды и испытания</h3>
                         <p>Доступно 100 уровней прогрессии, эксклюзивные скины и уникальные достижения для коллекции.</p>
-                        <a href="#" class="news-link">Детали сезона <i class="fas fa-chevron-right"></i></a>
+                        <a href="#" class="news-link">
+                            Детали сезона <i class="fas fa-chevron-right"></i>
+                        </a>
                     </div>
                 </article>
 
-                <article class="news-card">
+                <article class="news-card animate-fade">
                     <div class="news-card-header">
                         <span class="news-category balance">Баланс</span>
                         <span class="news-date">2 дня назад, 14:20</span>
                     </div>
-                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Баланс">
+                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Баланс" class="news-image">
                     <div class="news-card-content">
                         <h3>Изменения баланса в PvP режиме</h3>
                         <p>Нерф 3 overpowered способностей, бафф слабых классов, улучшена система подбора матчей.</p>
-                        <a href="#" class="news-link">Полный чейнджлог <i class="fas fa-chevron-right"></i></a>
+                        <a href="#" class="news-link">
+                            Полный чейнджлог <i class="fas fa-chevron-right"></i>
+                        </a>
                     </div>
                 </article>
 
-                <article class="news-card">
+                <article class="news-card animate-fade">
                     <div class="news-card-header">
                         <span class="news-category technical">Техническое</span>
                         <span class="news-date">3 дня назад, 11:45</span>
                     </div>
-                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Техработы">
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Техработы" class="news-image">
                     <div class="news-card-content">
                         <h3>Технические работы на серверах завершены</h3>
                         <p>Улучшена стабильность соединения, увеличена пропускная способность, снижен пинг на 30%.</p>
-                        <a href="#" class="news-link">Статистика серверов <i class="fas fa-chevron-right"></i></a>
+                        <a href="#" class="news-link">
+                            Статистика серверов <i class="fas fa-chevron-right"></i>
+                        </a>
                     </div>
                 </article>
 
-                <article class="news-card">
+                <article class="news-card animate-fade">
                     <div class="news-card-header">
                         <span class="news-category content">Контент</span>
                         <span class="news-date">4 дня назад, 16:10</span>
                     </div>
-                    <img src="https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Новый контент">
+                    <img src="https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Новый контент" class="news-image">
                     <div class="news-card-content">
                         <h3>Добавлены 2 новые игровые локации</h3>
                         <p>Ледяные пещеры и Пустынный каньон теперь доступны для исследования со своими секретами.</p>
-                        <a href="#" class="news-link">Карта локаций <i class="fas fa-chevron-right"></i></a>
+                        <a href="#" class="news-link">
+                            Карта локаций <i class="fas fa-chevron-right"></i>
+                        </a>
                     </div>
                 </article>
 
-                <article class="news-card">
+                <article class="news-card animate-fade">
                     <div class="news-card-header">
                         <span class="news-category leaderboard">Лидеры</span>
                         <span class="news-date">5 дней назад, 13:30</span>
                     </div>
-                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Таблица лидеров">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Таблица лидеров" class="news-image">
                     <div class="news-card-content">
                         <h3>Обновлена таблица лидеров за месяц</h3>
                         <p>Топ-100 игроков по очкам рейтинга, времени в игре и достижениям. Проверь свою позицию!</p>
-                        <a href="#" class="news-link">Смотреть топ <i class="fas fa-chevron-right"></i></a>
+                        <a href="#" class="news-link">
+                            Смотреть топ <i class="fas fa-chevron-right"></i>
+                        </a>
                     </div>
                 </article>
             </div>
@@ -172,28 +263,110 @@
             <div class="widget">
                 <h3><i class="fas fa-trophy"></i> Топ-10 игроков недели</h3>
                 <ul class="leaderboard-list">
-                    <li><span class="leader-rank gold">1</span> ProGamer228 <span class="leader-score">15,842</span></li>
-                    <li><span class="leader-rank silver">2</span> LemonKing <span class="leader-score">14,756</span></li>
-                    <li><span class="leader-rank bronze">3</span> BoxMaster <span class="leader-score">13,921</span></li>
-                    <li><span class="leader-rank">4</span> CitrusLord <span class="leader-score">12,845</span></li>
-                    <li><span class="leader-rank">5</span> YellowFlash <span class="leader-score">11,932</span></li>
-                    <li><span class="leader-rank">6</span> SourPower <span class="leader-score">10,876</span></li>
-                    <li><span class="leader-rank">7</span> ZestyWarrior <span class="leader-score">9,754</span></li>
-                    <li><span class="leader-rank">8</span> JuiceBox <span class="leader-score">8,921</span></li>
-                    <li><span class="leader-rank">9</span> CitrusQueen <span class="leader-score">8,123</span></li>
-                    <li><span class="leader-rank">10</span> LemonSqueezy <span class="leader-score">7,845</span></li>
+                    <li class="leaderboard-item">
+                        <span class="leader-rank gold">1</span>
+                        <span class="leader-info">
+                            <span class="leader-name">ProGamer228</span>
+                            <span class="leader-score">15,842</span>
+                        </span>
+                    </li>
+                    <li class="leaderboard-item">
+                        <span class="leader-rank silver">2</span>
+                        <span class="leader-info">
+                            <span class="leader-name">LemonKing</span>
+                            <span class="leader-score">14,756</span>
+                        </span>
+                    </li>
+                    <li class="leaderboard-item">
+                        <span class="leader-rank bronze">3</span>
+                        <span class="leader-info">
+                            <span class="leader-name">BoxMaster</span>
+                            <span class="leader-score">13,921</span>
+                        </span>
+                    </li>
+                    <li class="leaderboard-item">
+                        <span class="leader-rank">4</span>
+                        <span class="leader-info">
+                            <span class="leader-name">CitrusLord</span>
+                            <span class="leader-score">12,845</span>
+                        </span>
+                    </li>
+                    <li class="leaderboard-item">
+                        <span class="leader-rank">5</span>
+                        <span class="leader-info">
+                            <span class="leader-name">YellowFlash</span>
+                            <span class="leader-score">11,932</span>
+                        </span>
+                    </li>
+                    <li class="leaderboard-item">
+                        <span class="leader-rank">6</span>
+                        <span class="leader-info">
+                            <span class="leader-name">SourPower</span>
+                            <span class="leader-score">10,876</span>
+                        </span>
+                    </li>
+                    <li class="leaderboard-item">
+                        <span class="leader-rank">7</span>
+                        <span class="leader-info">
+                            <span class="leader-name">ZestyWarrior</span>
+                            <span class="leader-score">9,754</span>
+                        </span>
+                    </li>
+                    <li class="leaderboard-item">
+                        <span class="leader-rank">8</span>
+                        <span class="leader-info">
+                            <span class="leader-name">JuiceBox</span>
+                            <span class="leader-score">8,921</span>
+                        </span>
+                    </li>
+                    <li class="leaderboard-item">
+                        <span class="leader-rank">9</span>
+                        <span class="leader-info">
+                            <span class="leader-name">CitrusQueen</span>
+                            <span class="leader-score">8,123</span>
+                        </span>
+                    </li>
+                    <li class="leaderboard-item">
+                        <span class="leader-rank">10</span>
+                        <span class="leader-info">
+                            <span class="leader-name">LemonSqueezy</span>
+                            <span class="leader-score">7,845</span>
+                        </span>
+                    </li>
                 </ul>
-                <a href="#" class="view-all">Показать полный список →</a>
+                <a href="#" class="view-all">
+                    Показать полный список <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
 
             <div class="widget">
                 <h3><i class="fas fa-history"></i> История обновлений</h3>
                 <ul class="updates-list">
-                    <li><strong>7.0</strong> — Революционное обновление <span class="update-date">20.05.24</span></li>
-                    <li><strong>6.5</strong> — Сезонные изменения <span class="update-date">15.04.24</span></li>
-                    <li><strong>6.0</strong> — Новый игровой режим <span class="update-date">01.03.24</span></li>
-                    <li><strong>5.5</strong> — Баланс классов <span class="update-date">10.02.24</span></li>
-                    <li><strong>5.0</strong> — Графическое обновление <span class="update-date">25.01.24</span></li>
+                    <li class="updates-item">
+                        <span class="updates-version">7.0</span>
+                        <span class="updates-title">Революционное обновление</span>
+                        <span class="updates-date">20.05.24</span>
+                    </li>
+                    <li class="updates-item">
+                        <span class="updates-version">6.5</span>
+                        <span class="updates-title">Сезонные изменения</span>
+                        <span class="updates-date">15.04.24</span>
+                    </li>
+                    <li class="updates-item">
+                        <span class="updates-version">6.0</span>
+                        <span class="updates-title">Новый игровой режим</span>
+                        <span class="updates-date">01.03.24</span>
+                    </li>
+                    <li class="updates-item">
+                        <span class="updates-version">5.5</span>
+                        <span class="updates-title">Баланс классов</span>
+                        <span class="updates-date">10.02.24</span>
+                    </li>
+                    <li class="updates-item">
+                        <span class="updates-version">5.0</span>
+                        <span class="updates-title">Графическое обновление</span>
+                        <span class="updates-date">25.01.24</span>
+                    </li>
                 </ul>
             </div>
 
@@ -201,7 +374,7 @@
                 <h3><i class="fas fa-mobile-alt"></i> Скачать игру</h3>
                 <p>Только для Android устройств</p>
                 <div class="download-buttons">
-                    <a href="#" class="download-btn google-play">
+                    <a href="#" class="download-btn">
                         <i class="fab fa-google-play"></i>
                         <div class="download-info">
                             <span class="download-title">Скачать в</span>
@@ -222,32 +395,97 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-logo">
-                <i class="fas fa-lemon"></i>
-                <h3>Lemon <span>Box</span> News</h3>
-                <p>Официальный источник новостей игры Lemon Box © 2024</p>
-            </div>
-            <div class="footer-links">
-                <a href="#"><i class="fas fa-file-alt"></i> Патчноты</a>
-                <a href="#"><i class="fas fa-trophy"></i> Лидеры</a>
-                <a href="#"><i class="fas fa-download"></i> Скачать</a>
-                <a href="#"><i class="fas fa-bug"></i> Баг-репорты</a>
-            </div>
-            <div class="footer-social">
-                <h4>Официальные каналы</h4>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                    <a href="#"><i class="fab fa-discord"></i></a>
-                    <a href="#"><i class="fab fa-telegram"></i></a>
-                    <a href="#"><i class="fab fa-vk"></i></a>
+                <div class="footer-logo-icon">
+                    <i class="fas fa-lemon"></i>
                 </div>
-                <p>По вопросам сотрудничества: <a href="mailto:contact@lemonbox.game">contact@lemonbox.game</a></p>
+                <h3 class="footer-logo-title">Lemon <span>Box</span> News</h3>
+                <p class="footer-logo-text">Официальный источник новостей игры Lemon Box © 2024</p>
+            </div>
+            
+            <div class="footer-links">
+                <h4 class="footer-heading">Навигация</h4>
+                <a href="index.html" class="footer-link">
+                    <i class="fas fa-home"></i> Главная
+                </a>
+                <a href="login.html" class="footer-link">
+                    <i class="fas fa-sign-in-alt"></i> Вход
+                </a>
+                <a href="register.html" class="footer-link">
+                    <i class="fas fa-user-plus"></i> Регистрация
+                </a>
+                <a href="forum.html" class="footer-link">
+                    <i class="fas fa-comments"></i> Форум
+                </a>
+            </div>
+            
+            <div class="footer-social">
+                <h4 class="footer-heading">Официальные каналы</h4>
+                <div class="social-icons">
+                    <a href="#" class="social-link">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-discord"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-vk"></i>
+                    </a>
+                </div>
+                <div class="footer-contact">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:contact@lemonbox.game" class="contact-link">
+                            contact@lemonbox.game
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
+        
         <div class="footer-bottom">
-            <p>Lemon Box — динамичная онлайн игра с регулярными обновлениями и системой достижений.</p>
-            <p class="age-rating">12+</p>
+            <p class="footer-text">Lemon Box — динамичная онлайн игра с регулярными обновлениями и системой достижений.</p>
+            <p class="footer-copyright">
+                © 2024 Lemon Box News. Все права защищены.
+                <span class="age-rating">12+</span>
+            </p>
         </div>
     </footer>
 
+    <!-- Кнопка "Наверх" -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- JS -->
+    <script src="js/supabase-config.js"></script>
+    <script src="js/auth-functions.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/script.js"></script>
+    
+    <script>
+        // Активация меню пользователя
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = localStorage.getItem('currentUser');
+            const userMenu = document.getElementById('userMenu');
+            const loginLink = document.getElementById('loginLink');
+            const registerLink = document.getElementById('registerLink');
+            
+            if (currentUser) {
+                try {
+                    const user = JSON.parse(currentUser);
+                    document.getElementById('userName').textContent = user.username;
+                    userMenu.style.display = 'flex';
+                    
+                    if (loginLink) loginLink.style.display = 'none';
+                    if (registerLink) registerLink.style.display = 'none';
+                } catch (e) {
+                    localStorage.removeItem('currentUser');
+                }
+            }
+        });
+    </script>
 </body>
 </html>
