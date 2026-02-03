@@ -1,0 +1,158 @@
+/* ===== styles/components/header.css ===== */
+/* ШАПКА ДЛЯ ВСЕХ СТРАНИЦ */
+
+.header {
+    background-color: var(--bg-secondary);
+    border-bottom: 3px solid var(--lemon-yellow);
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow);
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+/* ЛОГОТИП */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.logo i {
+    color: var(--lemon-yellow);
+    font-size: 2.2rem;
+    animation: spin-lemon 20s linear infinite;
+}
+
+@keyframes spin-lemon {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.logo h1 {
+    font-family: 'Comic Neue', cursive;
+    font-size: 1.8rem;
+    font-weight: 800;
+    background: linear-gradient(45deg, var(--lemon-yellow), var(--lemon-green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.logo span {
+    color: var(--lemon-orange);
+}
+
+/* НАВИГАЦИЯ */
+.nav {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.nav a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 8px 16px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s;
+}
+
+.nav a:hover,
+.nav a.active {
+    color: var(--lemon-yellow);
+    background: rgba(255, 230, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+/* МЕНЮ ПОЛЬЗОВАТЕЛЯ */
+.user-menu {
+    display: none; /* По умолчанию скрыто */
+}
+
+.user-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    padding: 8px 16px;
+    border-radius: 25px;
+    color: var(--text-primary);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.user-btn:hover {
+    border-color: var(--lemon-green);
+}
+
+.user-avatar-small {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--lemon-yellow), var(--lemon-orange));
+}
+
+/* БУРГЕР МЕНЮ */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--lemon-yellow);
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+
+/* АДАПТИВ */
+@media (max-width: 768px) {
+    .nav {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        margin-top: 15px;
+    }
+    
+    .nav.active {
+        display: flex;
+    }
+    
+    .menu-toggle {
+        display: block;
+    }
+}
+
+/* ОТСТУПЫ В ШАПКЕ */
+.header .container {
+    padding: 20px;
+}
+
+.nav a {
+    margin: 0 5px;
+    padding: 12px 20px;
+}
+
+/* Отступы в навигации */
+.nav {
+    gap: 10px;
+}
+
+.nav a {
+    padding: 10px 20px;
+    margin: 0;
+}

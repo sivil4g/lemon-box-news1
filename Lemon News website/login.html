@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход | Lemon Box</title>
+    
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components/header.css">
+    <link rel="stylesheet" href="styles/components/footer.css">
+    <link rel="stylesheet" href="styles/pages/auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+     <!--Скрипты-->
+    <!-- Подключаем Supabase JS -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/auth-functions.js"></script>
+    <script src="js/login.js"></script>
+
+</head>
+<body>
+    <!-- Такая же шапка как в register.html -->
+    
+    <main class="register-container">
+        <div class="register-box">
+            <div class="register-header">
+                <h2 class="vhod"><i class="fas fa-sign-in-alt" style="padding-right: 10px; padding-top: 2px;"></i> Вход в аккаунт</h2>
+                <p class="vhod2">Войдите, чтобы получить доступ к форуму</p>
+            </div>
+            
+            <div id="message" class="message"></div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label class="form-label" for="loginEmail">
+                        <i class="fas fa-envelope"></i> Email
+                    </label>
+                    <input type="email" 
+                           id="loginEmail" 
+                           class="form-input"
+                           placeholder="Ваш email"
+                           required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="loginPassword">
+                        <i class="fas fa-lock"></i> Пароль
+                    </label>
+                    <input type="password" 
+                           id="loginPassword" 
+                           class="form-input"
+                           placeholder="Ваш пароль"
+                           required>
+                </div>
+                
+                <button type="submit" class="btn-auth">
+                    <i class="fas fa-sign-in-alt"></i> Войти
+                </button>
+            </form>
+            
+            <div class="auth-links">
+                Нет аккаунта? <a href="register.html">Зарегистрироваться</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

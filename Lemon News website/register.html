@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация | Lemon Box</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components/header.css">
+    <link rel="stylesheet" href="styles/components/footer.css">
+    <link rel="stylesheet" href="styles/pages/auth.css">
+
+        <!-- Подключаем Supabase -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+        <!--Скрипты-->
+    <!-- Подключаем Supabase JS -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/auth-functions.js"></script>
+    <script src="js/register.js"></script>
+
+</head>
+<body>
+    <!-- Шапка -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-lemon"></i>
+                <h1>Lemon <span>Box</span> News</h1>
+            </div>
+            <nav class="nav">
+                <a href="index.html"><i class="fas fa-home"></i> Главная</a>
+                <a href="login.html"><i class="fas fa-sign-in-alt"></i> Вход</a>
+                <a href="register.html" class="active"><i class="fas fa-user-plus"></i> Регистрация</a>
+                <a href="forum.html"><i class="fas fa-comments"></i> Форум</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="register-container">
+        <div class="register-box">
+            <div class="register-header">
+                <h2><i class="fas fa-user-plus"></i> Регистрация</h2>
+                <p>Создайте аккаунт для доступа к форуму</p>
+            </div>
+            
+            <div id="message" class="message"></div>
+            
+            <form id="registerForm">
+                <div class="form-group">
+                    <label class="form-label" for="username">
+                        <i class="fas fa-user"></i> Игровой никнейм
+                    </label>
+                    <input type="text" 
+                           id="username" 
+                           class="form-input"
+                           placeholder="Введите ваш ник в игре"
+                           required
+                           minlength="3"
+                           maxlength="20"
+                           pattern="[A-Za-z0-9_]+">
+                    <span class="form-help">Только буквы, цифры и подчеркивание. Без пробелов.</span>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="email">
+                        <i class="fas fa-envelope"></i> Email
+                    </label>
+                    <input type="email" 
+                           id="email" 
+                           class="form-input"
+                           placeholder="example@gmail.com"
+                           required>
+                    <span class="form-help">На этот email придет подтверждение</span>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="password">
+                        <i class="fas fa-lock"></i> Пароль
+                    </label>
+                    <input type="password" 
+                           id="password" 
+                           class="form-input"
+                           placeholder="Минимум 6 символов"
+                           required
+                           minlength="6">
+                    <div class="password-strength">
+                        <div class="strength-bar" id="strengthBar"></div>
+                        <span class="strength-text" id="strengthText">Сложность: слабый</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="confirmPassword">
+                        <i class="fas fa-lock"></i> Подтверждение пароля
+                    </label>
+                    <input type="password" 
+                           id="confirmPassword" 
+                           class="form-input"
+                           placeholder="Повторите пароль"
+                           required>
+                    <span class="form-help" id="passwordMatch"></span>
+                </div>
+                
+                <div class="form-check">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">
+                        Я согласен с <a href="#" class="terms-link">правилами форума</a> и 
+                        <a href="#" class="terms-link">политикой конфиденциальности</a>
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn-auth" id="submitBtn">
+                    <i class="fas fa-user-plus"></i> Зарегистрироваться
+                </button>
+            </form>
+            
+            <div class="auth-links">
+                Уже есть аккаунт? <a href="login.html">Войти</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <p>Lemon Box News © 2026 | Официальный источник новостей игры Lemon Box</p>
+            <p>Все права защищены. Данные хранятся в защищенной базе данных PostgreSQL</p>
+        </div>
+    </footer>
+</body>
+</html>

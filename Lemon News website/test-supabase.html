@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест Supabase Tables</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/test-supabase.css"></link>
+    <!--Скрипты-->
+    <!-- Подключаем Supabase JS -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/forum.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/auth-functions.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/register.js"></script>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-database"></i> Тест Базы Данных Lemon Box</h1>
+        
+        <div class="test-section">
+            <h3><i class="fas fa-plug"></i> Подключение к Supabase</h3>
+            <div id="connection-test" class="test-result loading">
+                <i class="fas fa-spinner fa-spin"></i> Проверяем подключение...
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h3><i class="fas fa-table"></i> Проверка таблиц</h3>
+            <div id="tables-test" class="test-result loading">
+                <i class="fas fa-spinner fa-spin"></i> Проверяем таблицы...
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h3><i class="fas fa-users"></i> Тестовые пользователи</h3>
+            <div id="users-test" class="test-result loading">
+                <i class="fas fa-spinner fa-spin"></i> Загружаем пользователей...
+            </div>
+            <div id="users-list" class="user-list"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3><i class="fas fa-comments"></i> Тестовые темы форума</h3>
+            <div id="topics-test" class="test-result loading">
+                <i class="fas fa-spinner fa-spin"></i> Загружаем темы...
+            </div>
+        </div>
+        
+        <button class="btn" onclick="runAllTests()">
+            <i class="fas fa-sync-alt"></i> Запустить все тесты заново
+        </button>
+        
+        <div id="stats" class="stats" style="display: none;">
+            <!-- Статистика загрузится здесь -->
+        </div>
+        
+        <div class="footer">
+            <p>Project: <strong>wwygjddrxvofhwrlahpj.supabase.co</strong></p>
+            <p>Проверка подключения к PostgreSQL базе данных</p>
+        </div>
+    </div>
+
+    <!-- Подключаем Supabase -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    
+    <script>
+        // Конфигурация
+        const SUPABASE_URL = 'https://wwygjddrxvofhwrlahpj.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind3eWdqZGRyeHZvZmh3cmxhaHBqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk4ODc4NzMsImV4cCI6MjA4NTQ2Mzg3M30.fcxQSSDdlWEV6UgjRYhHFCSlaML1UaLIDpiwDqh9_Jg';
+        
+        // ============================================
+        // ИСПРАВЛЕННАЯ ВЕРСИЯ БЕЗ КОНФЛИКТОВ
+        // ============================================
+        
+        // Элементы DOM
+        const connectionTest = document.getElementById('connection-test');
+        const tablesTest = document.getElementById('tables-test');
+        const usersTest = document.getElementById('users-test');
+        const topicsTest = document.getElementById('topics-test');
+        const usersList = document.getElementById('users-list');
+        const statsDiv = document.getElementById('stats');
+        
+        // Получаем клиент Supabase из глобальной переменной
+        function getSupabaseClient() {
+            // Пробуем получить из window.supabaseClient (из supabase-config.js)
+            if (window.supabaseClient) {
+                console.log("✅ Используем глобальный клиент Supabase");
+                return window.supabaseClient;
+            }
+            
+            // Если глобального нет, создаем временный
+            console.log("⚠️ Глобальный клиент не найден, создаем временный");
+            const SUPABASE_URL = 'https://wwygjddrxvofhwrlahpj.supabase.co';
+            const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind3eWdqZGRyeHZvZmh3cmxhaHBqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk4ODc4NzMsImV4cCI6MjA4NTQ2Mzg3M30.fcxQSSDdlWEV6UgjRYhHFCSlaML1UaLIDpiwDqh9_Jg';
+            
+            return window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        }
+        
+        // Тест подключения
+        async function testConnection() {
+            connectionTest.className = 'test-result loading';
+            connectionTest.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Проверяем подключение...';
+            
+            const supabase = getSupabaseClient();
+            
+            try {
+                // Простой запрос для проверки
+                const { data, error } = await supabase
+                    .from('users')
+                    .select('count', { count: 'exact', head: true });
+                
+                if (error) {
+                    if (error.code === '42P01') {
+                        // Таблица не существует, но подключение работает
+                        connectionTest.className = 'test-result success';
+                        connectionTest.innerHTML = '<i class="fas fa-check-circle"></i> ✅ Подключение работает!';
+                        return true;
+                    } else {
+                        throw error;
+                    }
+                } else {
+                    connectionTest.className = 'test-result success';
+                    connectionTest.innerHTML = `<i class="fas fa-check-circle"></i> ✅ Подключение успешно!`;
+                    return true;
+                }
+            } catch (error) {
+                connectionTest.className = 'test-result error';
+                connectionTest.innerHTML = `<i class="fas fa-times-circle"></i> ❌ Ошибка подключения: ${error.message}`;
+                return false;
+            }
+        }
+        
+        // Тест таблиц
+        async function testTables() {
+            tablesTest.className = 'test-result loading';
+            tablesTest.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Проверяем таблицы...';
+            
+            const supabase = getSupabaseClient();
+            const tables = ['users', 'forum_topics', 'forum_posts', 'leaderboard'];
+            const results = [];
+            
+            for (const table of tables) {
+                try {
+                    const { data, error } = await supabase
+                        .from(table)
+                        .select('count', { count: 'exact', head: true });
+                    
+                    if (error && error.code === '42P01') {
+                        results.push({ table, exists: false });
+                    } else if (error) {
+                        results.push({ table, exists: false, error: error.message });
+                    } else {
+                        results.push({ table, exists: true });
+                    }
+                } catch (error) {
+                    results.push({ table, exists: false, error: error.message });
+                }
+            }
+            
+            // Показываем результаты
+            const existingTables = results.filter(r => r.exists).length;
+            const totalTables = tables.length;
+            
+            if (existingTables === 0) {
+                tablesTest.className = 'test-result error';
+                tablesTest.innerHTML = `<i class="fas fa-times-circle"></i> ❌ Таблицы не созданы (0/${totalTables})`;
+            } else if (existingTables < totalTables) {
+                tablesTest.className = 'test-result';
+                tablesTest.innerHTML = `<i class="fas fa-exclamation-triangle"></i> ⚠️ Часть таблиц создана (${existingTables}/${totalTables})`;
+                
+                // Показываем какие таблицы есть
+                const details = results.map(r => 
+                    `${r.table}: ${r.exists ? '✅' : '❌'}`
+                ).join('<br>');
+                tablesTest.innerHTML += `<br><small>${details}</small>`;
+            } else {
+                tablesTest.className = 'test-result success';
+                tablesTest.innerHTML = `<i class="fas fa-check-circle"></i> ✅ Все таблицы созданы (${existingTables}/${totalTables})`;
+            }
+            
+            return results;
+        }
+        
+        // Тест пользователей
+        async function testUsers() {
+            usersTest.className = 'test-result loading';
+            usersTest.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Загружаем пользователей...';
+            usersList.innerHTML = '';
+            
+            const supabase = getSupabaseClient();
+            
+            try {
+                const { data: users, error } = await supabase
+                    .from('users')
+                    .select('*')
+                    .order('score', { ascending: false })
+                    .limit(10);
+                
+                if (error) {
+                    if (error.code === '42P01') {
+                        usersTest.className = 'test-result error';
+                        usersTest.innerHTML = '<i class="fas fa-times-circle"></i> ❌ Таблица users не создана';
+                        return [];
+                    }
+                    throw error;
+                }
+                
+                if (users.length === 0) {
+                    usersTest.className = 'test-result';
+                    usersTest.innerHTML = '<i class="fas fa-info-circle"></i> ℹ️ В таблице users нет записей';
+                } else {
+                    usersTest.className = 'test-result success';
+                    usersTest.innerHTML = `<i class="fas fa-check-circle"></i> ✅ Найдено пользователей: ${users.length}`;
+                    
+                    // Показываем список
+                    users.forEach(user => {
+                        const userDiv = document.createElement('div');
+                        userDiv.className = 'user-item';
+                        userDiv.innerHTML = `
+                            <span class="user-name">${user.username}</span>
+                            <span class="user-score">🏆 ${user.score} (ур. ${user.level})</span>
+                        `;
+                        usersList.appendChild(userDiv);
+                    });
+                }
+                
+                return users;
+            } catch (error) {
+                usersTest.className = 'test-result error';
+                usersTest.innerHTML = `<i class="fas fa-times-circle"></i> ❌ Ошибка: ${error.message}`;
+                return [];
+            }
+        }
+        
+        // Тест тем форума
+        async function testTopics() {
+            topicsTest.className = 'test-result loading';
+            topicsTest.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Загружаем темы...';
+            
+            const supabase = getSupabaseClient();
+            
+            try {
+                const { data: topics, error } = await supabase
+                    .from('forum_topics')
+                    .select('*')
+                    .order('created_at', { ascending: false })
+                    .limit(5);
+                
+                if (error) {
+                    if (error.code === '42P01') {
+                        topicsTest.className = 'test-result error';
+                        topicsTest.innerHTML = '<i class="fas fa-times-circle"></i> ❌ Таблица forum_topics не создана';
+                        return [];
+                    }
+                    throw error;
+                }
+                
+                if (topics.length === 0) {
+                    topicsTest.className = 'test-result';
+                    topicsTest.innerHTML = '<i class="fas fa-info-circle"></i> ℹ️ В таблице forum_topics нет записей';
+                } else {
+                    topicsTest.className = 'test-result success';
+                    topicsTest.innerHTML = `<i class="fas fa-check-circle"></i> ✅ Найдено тем: ${topics.length}`;
+                }
+                
+                return topics;
+            } catch (error) {
+                topicsTest.className = 'test-result error';
+                topicsTest.innerHTML = `<i class="fas fa-times-circle"></i> ❌ Ошибка: ${error.message}`;
+                return [];
+            }
+        }
+        
+        // Обновить статистику
+        async function updateStats(users, topics) {
+            statsDiv.style.display = 'grid';
+            statsDiv.innerHTML = `
+                <div class="stat-box">
+                    <div class="stat-value">${users.length}</div>
+                    <div class="stat-label">Пользователей</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">${topics.length}</div>
+                    <div class="stat-label">Тем форума</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">${window.supabaseClient ? '✅' : '❌'}</div>
+                    <div class="stat-label">Глобальный клиент</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">PostgreSQL</div>
+                    <div class="stat-label">База данных</div>
+                </div>
+            `;
+        }
+        
+        // Запустить все тесты
+        async function runAllTests() {
+            console.log('Запуск тестов Supabase...');
+            
+            // Тест подключения
+            const connectionOk = await testConnection();
+            if (!connectionOk) {
+                alert('❌ Нет подключения к Supabase! Проверь интернет и ключи API.');
+                return;
+            }
+            
+            // Тест таблиц
+            const tablesResults = await testTables();
+            
+            // Тест пользователей
+            const users = await testUsers();
+            
+            // Тест тем
+            const topics = await testTopics();
+            
+            // Обновить статистику
+            await updateStats(users, topics);
+            
+            // Если все ок - предлагаем перейти к регистрации
+            if (users.length > 0 || topics.length > 0) {
+                const registerBtn = document.createElement('a');
+                registerBtn.href = 'register.html';
+                registerBtn.className = 'btn';
+                registerBtn.innerHTML = '<i class="fas fa-user-plus"></i> Перейти к регистрации';
+                registerBtn.style.marginTop = '20px';
+                document.querySelector('.container').appendChild(registerBtn);
+            }
+            
+            console.log('Тесты завершены');
+        }
+        
+        // Запустить тесты при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            // Даем время загрузиться supabase-config.js
+            setTimeout(runAllTests, 500);
+        });
+        
+        // Сделать функцию глобальной для кнопки
+        window.runAllTests = runAllTests;
+    </script>
+</body>
+</html>

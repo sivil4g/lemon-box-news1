@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lemon Box News | Официальные новости игры</title>
+    
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components/header.css">
+    <link rel="stylesheet" href="styles/components/footer.css">
+    <link rel="stylesheet" href="styles/pages/index.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="https://img.icons8.com/color/96/000000/lemon.png">
+
+    <!--Скрипты-->
+    <!-- Подключаем Supabase JS -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="js/script.js"></script>
+</head>
+</head>
+<body>
+    <!-- Шапка -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-lemon"></i>
+                <h1>Lemon <span>Box</span> News</h1>
+                <h5 class="lbn">Официальный новостной портал Lemon Box News</h5>
+            </div>
+            <nav class="nav">
+                <a href="#" class="active"><i class="fas fa-home"></i> Главная</a>
+                <a href="#"><i class="fas fa-newspaper"></i> Новости</a>
+                <a href="#"><i class="fas fa-gamepad"></i> Геймплей</a>
+                <a href="#"><i class="fas fa-trophy"></i> Лидеры</a>
+                <a href="#"><i class="fas fa-cloud-download-alt"></i> Скачать</a>
+                <a href="#"><i class="fas fa-question-circle"></i> Помощь</a>
+            </nav>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Главный баннер -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-tag">НОВОЕ ОБНОВЛЕНИЕ 7.0</span>
+            <h2>Lemon Box 7.0 "РЕВОЛЮЦИОННОЕ ОБНОВЛЕНИЕ"</h2>
+            <p>Полный редизайн интерфейса, новая система достижений, улучшенная графика и оптимизация производительности!</p>
+            <a href="#" class="btn-hero">Читать патчноты <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="hero-lemons">
+            <div class="lemon"></div>
+            <div class="lemon"></div>
+            <div class="lemon"></div>
+        </div>
+    </section>
+
+    <!-- Быстрый доступ -->
+    <section class="quick-links">
+        <div class="container">
+            <a href="#" class="quick-link">
+                <i class="fas fa-download"></i>
+                <span>Скачать<br>игру</span>
+            </a>
+            <a href="#" class="quick-link">
+                <i class="fas fa-list-ol"></i>
+                <span>Таблица<br>лидеров</span>
+            </a>
+            <a href="#" class="quick-link">
+                <i class="fas fa-sync-alt"></i>
+                <span>История<br>обновлений</span>
+            </a>
+            <a href="#" class="quick-link">
+                <i class="fas fa-bug"></i>
+                <span>Известные<br>баги</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Основной контент -->
+    <main class="container main-content">
+        <!-- Секция последних новостей -->
+        <section class="news-section">
+            <h2><i class="fas fa-fire"></i> Последние новости об обновлениях</h2>
+            <div class="news-grid">
+                <article class="news-card">
+                    <div class="news-card-header">
+                        <span class="news-category hotfix">Хотфикс</span>
+                        <span class="news-date">Сегодня, 09:15</span>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Исправление багов">
+                    <div class="news-card-content">
+                        <h3>Вышел хотфикс 7.0.1 - исправлены критические ошибки</h3>
+                        <p>Исправлены проблемы с загрузкой текстур, оптимизирована работа сервера, устранены 15+ багов.</p>
+                        <a href="#" class="news-link">Список исправлений <i class="fas fa-chevron-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <div class="news-card-header">
+                        <span class="news-category update">Обновление</span>
+                        <span class="news-date">Вчера, 18:30</span>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Новый сезон">
+                    <div class="news-card-content">
+                        <h3>Сезон 7 начался! Новые награды и испытания</h3>
+                        <p>Доступно 100 уровней прогрессии, эксклюзивные скины и уникальные достижения для коллекции.</p>
+                        <a href="#" class="news-link">Детали сезона <i class="fas fa-chevron-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <div class="news-card-header">
+                        <span class="news-category balance">Баланс</span>
+                        <span class="news-date">2 дня назад, 14:20</span>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Баланс">
+                    <div class="news-card-content">
+                        <h3>Изменения баланса в PvP режиме</h3>
+                        <p>Нерф 3 overpowered способностей, бафф слабых классов, улучшена система подбора матчей.</p>
+                        <a href="#" class="news-link">Полный чейнджлог <i class="fas fa-chevron-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <div class="news-card-header">
+                        <span class="news-category technical">Техническое</span>
+                        <span class="news-date">3 дня назад, 11:45</span>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Техработы">
+                    <div class="news-card-content">
+                        <h3>Технические работы на серверах завершены</h3>
+                        <p>Улучшена стабильность соединения, увеличена пропускная способность, снижен пинг на 30%.</p>
+                        <a href="#" class="news-link">Статистика серверов <i class="fas fa-chevron-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <div class="news-card-header">
+                        <span class="news-category content">Контент</span>
+                        <span class="news-date">4 дня назад, 16:10</span>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Новый контент">
+                    <div class="news-card-content">
+                        <h3>Добавлены 2 новые игровые локации</h3>
+                        <p>Ледяные пещеры и Пустынный каньон теперь доступны для исследования со своими секретами.</p>
+                        <a href="#" class="news-link">Карта локаций <i class="fas fa-chevron-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <div class="news-card-header">
+                        <span class="news-category leaderboard">Лидеры</span>
+                        <span class="news-date">5 дней назад, 13:30</span>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Таблица лидеров">
+                    <div class="news-card-content">
+                        <h3>Обновлена таблица лидеров за месяц</h3>
+                        <p>Топ-100 игроков по очкам рейтинга, времени в игре и достижениям. Проверь свою позицию!</p>
+                        <a href="#" class="news-link">Смотреть топ <i class="fas fa-chevron-right"></i></a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Сайдбар -->
+        <aside class="sidebar">
+            <div class="widget">
+                <h3><i class="fas fa-trophy"></i> Топ-10 игроков недели</h3>
+                <ul class="leaderboard-list">
+                    <li><span class="leader-rank gold">1</span> ProGamer228 <span class="leader-score">15,842</span></li>
+                    <li><span class="leader-rank silver">2</span> LemonKing <span class="leader-score">14,756</span></li>
+                    <li><span class="leader-rank bronze">3</span> BoxMaster <span class="leader-score">13,921</span></li>
+                    <li><span class="leader-rank">4</span> CitrusLord <span class="leader-score">12,845</span></li>
+                    <li><span class="leader-rank">5</span> YellowFlash <span class="leader-score">11,932</span></li>
+                    <li><span class="leader-rank">6</span> SourPower <span class="leader-score">10,876</span></li>
+                    <li><span class="leader-rank">7</span> ZestyWarrior <span class="leader-score">9,754</span></li>
+                    <li><span class="leader-rank">8</span> JuiceBox <span class="leader-score">8,921</span></li>
+                    <li><span class="leader-rank">9</span> CitrusQueen <span class="leader-score">8,123</span></li>
+                    <li><span class="leader-rank">10</span> LemonSqueezy <span class="leader-score">7,845</span></li>
+                </ul>
+                <a href="#" class="view-all">Показать полный список →</a>
+            </div>
+
+            <div class="widget">
+                <h3><i class="fas fa-history"></i> История обновлений</h3>
+                <ul class="updates-list">
+                    <li><strong>7.0</strong> — Революционное обновление <span class="update-date">20.05.24</span></li>
+                    <li><strong>6.5</strong> — Сезонные изменения <span class="update-date">15.04.24</span></li>
+                    <li><strong>6.0</strong> — Новый игровой режим <span class="update-date">01.03.24</span></li>
+                    <li><strong>5.5</strong> — Баланс классов <span class="update-date">10.02.24</span></li>
+                    <li><strong>5.0</strong> — Графическое обновление <span class="update-date">25.01.24</span></li>
+                </ul>
+            </div>
+
+            <div class="widget download-widget">
+                <h3><i class="fas fa-mobile-alt"></i> Скачать игру</h3>
+                <p>Только для Android устройств</p>
+                <div class="download-buttons">
+                    <a href="#" class="download-btn google-play">
+                        <i class="fab fa-google-play"></i>
+                        <div class="download-info">
+                            <span class="download-title">Скачать в</span>
+                            <span class="download-store">Google Play</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="version-info">
+                    <p><i class="fas fa-info-circle"></i> Версия: 7.0.1</p>
+                    <p><i class="fas fa-database"></i> Размер: 850 MB</p>
+                    <p><i class="fas fa-check-circle"></i> Требуется Android 8.0+</p>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">
+                <i class="fas fa-lemon"></i>
+                <h3>Lemon <span>Box</span> News</h3>
+                <p>Официальный источник новостей игры Lemon Box © 2024</p>
+            </div>
+            <div class="footer-links">
+                <a href="#"><i class="fas fa-file-alt"></i> Патчноты</a>
+                <a href="#"><i class="fas fa-trophy"></i> Лидеры</a>
+                <a href="#"><i class="fas fa-download"></i> Скачать</a>
+                <a href="#"><i class="fas fa-bug"></i> Баг-репорты</a>
+            </div>
+            <div class="footer-social">
+                <h4>Официальные каналы</h4>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fab fa-vk"></i></a>
+                </div>
+                <p>По вопросам сотрудничества: <a href="mailto:contact@lemonbox.game">contact@lemonbox.game</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Lemon Box — динамичная онлайн игра с регулярными обновлениями и системой достижений.</p>
+            <p class="age-rating">12+</p>
+        </div>
+    </footer>
+
+</body>
+</html>
